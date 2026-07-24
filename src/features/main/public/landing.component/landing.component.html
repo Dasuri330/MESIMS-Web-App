@@ -1,0 +1,26 @@
+<main class="landing photo-backdrop">
+  <section class="hero">
+    <div class="hero__content container text-center">
+      <h1 class="display-5 fw-semibold mb-4">
+        {{ schoolName }}<br />
+        Information Management System
+      </h1>
+
+      <p class="lead fw-normal text-secondary-emphasis mb-5">
+        Simplify enrollment, grading, and school communication with one
+        centralized platform for the entire school community.
+      </p>
+
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a routerLink="/auth/login" class="btn btn-primary btn-lg px-4">
+          Sign in
+        </a>
+        <a routerLink="/learn-more" class="btn btn-dark btn-lg px-4">
+          Learn more
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <app-footer />
+</main>

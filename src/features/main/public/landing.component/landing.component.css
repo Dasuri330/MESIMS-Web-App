@@ -1,0 +1,32 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+
+.hero__content {
+  max-width: 42rem;
+  padding-block: 6rem;
+}
+
+@media (min-width: 576px) {
+  .hero__content {
+    padding-block: 8rem;
+  }
+}
+.hero__content .lead {
+  font-weight: 400;
+}
