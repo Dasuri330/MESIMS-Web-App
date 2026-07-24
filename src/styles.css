@@ -1,0 +1,129 @@
+/* Bootstrap is wired into angular.json by `ng add`, so it is not
+   imported here. This file holds MESIMS theme overrides only. */
+
+/* ---------------------------------------------------------------
+   Brand palette
+   Bootstrap 5.3 exposes component-level CSS variables, so the
+   theme can be retuned here without Sass.
+   --------------------------------------------------------------- */
+
+:root {
+  --mesims-brand: #378add;
+  --mesims-brand-dark: #2c6fb1;
+  --mesims-brand-darker: #265a90;
+
+  --school-photo: url('/assets/mesims_school_bg.png');
+
+  /* DepEd grade descriptors — DO No. 8, s. 2015 */
+  --mesims-grade-outstanding: #2c6f40;
+  --mesims-grade-very-satisfactory: #3f9e5a;
+  --mesims-grade-satisfactory: #c98a1e;
+  --mesims-grade-fair: #d97b3a;
+  --mesims-grade-failed: #cf4646;
+
+  --bs-body-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --bs-body-color: #24282c;
+  --bs-link-color-rgb: 55, 138, 221;
+}
+
+/* ---------------------------------------------------------------
+   Shared backdrop
+   Any page wrapper can take .photo-backdrop. Override the three
+   custom properties in that page's own CSS to retune the wash
+   without touching this rule.
+   --------------------------------------------------------------- */
+
+.photo-backdrop {
+  --backdrop-top: rgba(255, 255, 255, 0.85);
+  --backdrop-mid: rgba(255, 255, 255, 0.75);
+  --backdrop-bottom: rgba(255, 255, 255, 0.9);
+
+  background-image:
+    linear-gradient(
+      to bottom,
+      var(--backdrop-top),
+      var(--backdrop-mid) 50%,
+      var(--backdrop-bottom)
+    ),
+    var(--school-photo);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Primary buttons carry the brand colour */
+.btn-primary {
+  --bs-btn-bg: var(--mesims-brand);
+  --bs-btn-border-color: var(--mesims-brand);
+  --bs-btn-hover-bg: var(--mesims-brand-dark);
+  --bs-btn-hover-border-color: var(--mesims-brand-dark);
+  --bs-btn-active-bg: var(--mesims-brand-darker);
+  --bs-btn-active-border-color: var(--mesims-brand-darker);
+  --bs-btn-disabled-bg: var(--mesims-brand);
+  --bs-btn-disabled-border-color: var(--mesims-brand);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--mesims-brand);
+  --bs-btn-border-color: var(--mesims-brand);
+  --bs-btn-hover-bg: var(--mesims-brand);
+  --bs-btn-hover-border-color: var(--mesims-brand);
+  --bs-btn-active-bg: var(--mesims-brand-dark);
+  --bs-btn-active-border-color: var(--mesims-brand-dark);
+}
+
+/* ---------------------------------------------------------------
+   Global element defaults
+   --------------------------------------------------------------- */
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* One consistent focus ring across the system.
+   Keyboard users see it; mouse users do not. */
+:focus-visible {
+  outline: 2px solid var(--mesims-brand-dark);
+  outline-offset: 2px;
+}
+
+/* Angular pairs ng-touched with ng-invalid — do not flag a field
+   red before the user has actually been in it. */
+.form-control.ng-touched.ng-invalid,
+.form-select.ng-touched.ng-invalid {
+  border-color: var(--bs-danger);
+}
+
+.form-control.ng-touched.ng-invalid:focus,
+.form-select.ng-touched.ng-invalid:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.2);
+}
+
+/* Long identifiers stay readable: LRN, PRC, TIN, employee numbers */
+.identifier {
+  font-family: ui-monospace, 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------
+   Print — report cards and Form 138 are printed constantly
+   --------------------------------------------------------------- */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+}

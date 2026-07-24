@@ -1,0 +1,86 @@
+<main class="learn-more photo-backdrop">
+  <section class="section">
+    <div class="container">
+      <header class="text-center mb-5">
+        <h1 class="fw-semibold mb-3">How MESIMS works</h1>
+        <p class="lead fw-normal text-secondary-emphasis mx-auto section__intro">
+          Optimize your school operations with one integrated management system.
+        </p>
+      </header>
+
+      <ol class="steps list-unstyled mx-auto">
+        @for (step of steps; track step.title; let i = $index) {
+          <li class="steps__item">
+            <span class="steps__marker" aria-hidden="true">{{ i + 1 }}</span>
+            <div>
+              <h2 class="h5 fw-semibold mb-1">{{ step.title }}</h2>
+              <p class="text-secondary-emphasis mb-0">{{ step.body }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <h2 class="text-center fw-semibold mb-5">Key benefits</h2>
+
+      <div class="row g-4 justify-content-center">
+        @for (benefit of benefits; track benefit.title) {
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <i class="bi {{ benefit.icon }} fs-3 text-primary" aria-hidden="true"></i>
+                <h3 class="h5 fw-semibold mt-3 mb-2">{{ benefit.title }}</h3>
+                <p class="text-secondary-emphasis mb-0">{{ benefit.body }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="text-center mb-5">
+        <h2 class="fw-semibold mb-3">Common questions</h2>
+        <p class="lead fw-normal text-secondary-emphasis">
+          Answers for parents and staff getting started.
+        </p>
+      </header>
+
+      <div ngbAccordion class="faq mx-auto">
+        @for (faq of faqs; track faq.question) {
+          <div ngbAccordionItem>
+            <h3 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ faq.question }}</button>
+            </h3>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>{{ faq.answer }}</ng-template>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cta text-center">
+    <div class="container">
+      <h2 class="h4 fw-semibold mb-4">
+        Ready to get started?
+      </h2>
+      <a routerLink="/auth/login" class="btn btn-primary btn-lg px-4">Sign in</a>
+      <p class="mt-4 mb-0">
+        <a routerLink="/" class="link-secondary">Back to home</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-secondary text-center py-3 small">
+    All rights reserved &copy; {{ currentYear }}
+  </footer>
+</main>
