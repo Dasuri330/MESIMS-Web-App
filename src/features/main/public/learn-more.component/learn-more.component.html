@@ -1,5 +1,11 @@
 <main class="learn-more photo-backdrop">
-  <section class="section">
+  <div class="container-fluid px-4 pt-4">
+  <a routerLink="/" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    Back to home
+  </a>
+</div>
+  <section class="section section--first">
     <div class="container">
       <header class="text-center mb-5">
         <h1 class="fw-semibold mb-3">How MESIMS works</h1>
@@ -42,10 +48,37 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <header class="text-center mb-5">
-        <h2 class="fw-semibold mb-3">Common questions</h2>
+  <section class="section section--tight">
+  <div class="container">
+    <h2 class="text-center fw-semibold mb-5">What each role can do</h2>
+
+    <div class="row g-4 justify-content-center">
+      @for (role of roles; track role.title) {
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <i class="bi {{ role.icon }} fs-3 text-primary" aria-hidden="true"></i>
+              <h3 class="h5 fw-semibold mt-3 mb-3">{{ role.title }}</h3>
+              <ul class="role-list list-unstyled mb-0">
+                @for (item of role.items; track item) {
+                  <li>
+                    <i class="bi bi-check-lg text-success" aria-hidden="true"></i>
+                    <span>{{ item }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+  <section class="section section--tint section--tight">
+  <div class="container">
+    <header class="text-center mb-5">
+      <h2 class="fw-semibold mb-3">Common questions</h2>
         <p class="lead fw-normal text-secondary-emphasis">
           Answers for parents and staff getting started.
         </p>
@@ -59,7 +92,7 @@
             </h3>
             <div ngbAccordionCollapse>
               <div ngbAccordionBody>
-                <ng-template>{{ faq.answer }}</ng-template>
+                <ng-template><span [innerHTML]="faq.answer"></span></ng-template>
               </div>
             </div>
           </div>
@@ -74,13 +107,7 @@
         Ready to get started?
       </h2>
       <a routerLink="/auth/login" class="btn btn-primary btn-lg px-4">Sign in</a>
-      <p class="mt-4 mb-0">
-        <a routerLink="/" class="link-secondary">Back to home</a>
-      </p>
     </div>
   </section>
-
-  <footer class="bg-dark text-secondary text-center py-3 small">
-    All rights reserved &copy; {{ currentYear }}
-  </footer>
+  <app-footer />
 </main>
