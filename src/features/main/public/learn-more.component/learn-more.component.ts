@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from '../../../../shared/components/footer.component/footer.component';
 
 interface Step {
   readonly title: string;
@@ -13,6 +14,11 @@ interface Benefit {
   readonly body: string;
 }
 
+interface Role {
+  readonly icon: string;
+  readonly title: string;
+  readonly items: readonly string[];
+}
 interface Faq {
   readonly question: string;
   readonly answer: string;
@@ -20,7 +26,7 @@ interface Faq {
 
 @Component({
   selector: 'app-learn-more',
-  imports: [RouterLink, NgbAccordionModule],
+  imports: [RouterLink, NgbAccordionModule, FooterComponent],
   templateUrl: './learn-more.component.html',
   styleUrl: './learn-more.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,7 +69,56 @@ export class LearnMoreComponent {
       title: 'Better communication',
       body: 'Parents and teachers stay connected through grade updates and announcements as they happen.',
     },
+    {
+      icon: 'bi-bar-chart',
+      title: 'Data driven decisions',
+      body: 'Dashboards show performance trends. Identify struggling students early. Track school progress over time.',
+    },
+    {
+      icon: 'bi-phone',
+      title: 'Access anywhere',
+      body: 'Works on desktop, tablet, and mobile. Parents check grades on the go. Teachers update marks from home.',
+    },
+    {
+      icon: 'bi-people',
+      title: 'Easy integration',
+      body: 'Import existing student lists. Export reports as PDF. API available for third-party systems.',
+    }
+
   ];
+
+  protected readonly roles: readonly Role[] = [
+  {
+    icon: 'bi-shield-lock',
+    title: 'Administrator',
+    items: ['Manage all users', 'View system analytics', 'Configure settings', 'Access audit logs'],
+  },
+  {
+    icon: 'bi-award',
+    title: 'Principal',
+    items: ['Monitor all classes', 'View reports', 'Approve enrollments', 'Manage teachers'],
+  },
+  {
+    icon: 'bi-folder',
+    title: 'Registrar',
+    items: ['Process enrollments', 'Update student info', 'Export transcripts', 'Manage sections'],
+  },
+  {
+    icon: 'bi-easel',
+    title: 'Teacher',
+    items: ['Encode grades', 'View class roster', 'Message parents', 'Record attendance'],
+  },
+  {
+    icon: 'bi-people',
+    title: 'Parent',
+    items: ['View grades', 'See announcements', 'Contact teachers', 'Update contact info'],
+  },
+  {
+    icon: 'bi-person-check',
+    title: 'Student',
+    items: ['View own grades', 'Check schedule', 'View report card', 'Update profile'],
+  },
+];
 
   protected readonly faqs: readonly Faq[] = [
     {
@@ -94,7 +149,7 @@ export class LearnMoreComponent {
     {
       question: 'Who do I contact for help?',
       answer:
-        "For login and account problems, contact the registrar's office. For questions about grades, message your child's teacher through the parent portal.",
+        "For login and account issues, contact the registrar's office. <a href=\"mailto:support@meridian.edu.ph\">support@meridian.edu.ph</a>. For questions about grades, message your child's teacher directly through the parent portal.",
     },
   ];
 }
