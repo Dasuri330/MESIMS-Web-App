@@ -1,0 +1,90 @@
+<app-dashboard-shell
+  roleLabel="Teacher"
+  userName="Elena Santos"
+  [navItems]="navItems"
+>
+  <h1 class="h4 fw-semibold mb-1">Good morning, Ma'am Santos</h1>
+  <p class="text-secondary-emphasis mb-4">Here's what's on your plate today.</p>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-people fs-4 text-primary" aria-hidden="true"></i>
+          <p class="h4 fw-semibold mt-2 mb-0">38</p>
+          <p class="text-secondary-emphasis small mb-0">Advisory learners</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-journal-check fs-4 text-warning" aria-hidden="true"></i>
+          <p class="h4 fw-semibold mt-2 mb-0">2</p>
+          <p class="text-secondary-emphasis small mb-0">Sections pending grades</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-book fs-4 text-success" aria-hidden="true"></i>
+          <p class="h4 fw-semibold mt-2 mb-0">6</p>
+          <p class="text-secondary-emphasis small mb-0">Subjects this quarter</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-clock-history fs-4 text-secondary" aria-hidden="true"></i>
+          <p class="h4 fw-semibold mt-2 mb-0">4h 40m</p>
+          <p class="text-secondary-emphasis small mb-0">Daily teaching load</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 fw-semibold mb-3">Today's schedule</h2>
+          <ul class="list-unstyled mb-0">
+            @for (item of schedule; track item.time) {
+              <li class="d-flex align-items-center gap-3 py-2 border-bottom">
+                <span class="text-secondary-emphasis small identifier" style="width: 4.5rem;">{{ item.time }}</span>
+                <div>
+                  <p class="mb-0 fw-medium">{{ item.subject }}</p>
+                  <p class="mb-0 small text-secondary-emphasis">{{ item.section }}</p>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="h6 fw-semibold mb-3">Quick actions</h2>
+          <div class="d-flex flex-column gap-2">
+            <button type="button" class="btn btn-primary text-start">
+              <i class="bi bi-journal-plus me-2" aria-hidden="true"></i>
+              Encode grades
+            </button>
+            <button type="button" class="btn btn-outline-secondary text-start">
+              <i class="bi bi-clipboard-check me-2" aria-hidden="true"></i>
+              Take attendance
+            </button>
+            <button type="button" class="btn btn-outline-secondary text-start">
+              <i class="bi bi-chat-dots me-2" aria-hidden="true"></i>
+              Message a parent
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard-shell>
