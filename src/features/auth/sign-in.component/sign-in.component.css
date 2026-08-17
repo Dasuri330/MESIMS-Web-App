@@ -1,0 +1,126 @@
+.signin-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  background-color: #f2f3f5;
+}
+
+.signin-page__back {
+  width: 100%;
+  max-width: 60rem;
+}
+
+.signin-card {
+  width: 100%;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.12);
+}
+
+.signin-card__body {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .signin-card__body {
+    flex-direction: row;
+    min-height: 34rem;
+  }
+}
+
+/* ── Left: photo panel ───────────────────────────────── */
+
+.signin-card__brand {
+  flex: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .signin-card__brand {
+    display: flex;
+  }
+}
+
+.signin-card__brand-content {
+  max-width: 20rem;
+}
+
+.signin-card__divider {
+  margin: 0.75rem auto;
+  border-top: 2px solid var(--bs-body-color);
+  opacity: 1;
+}
+
+/* ── Right: form panel ───────────────────────────────── */
+
+.signin-card__form {
+  flex: 1;
+  background-color: #36454F;
+  padding: 2.5rem 2.25rem 2rem;
+}
+
+.signin-card__input {
+  background-color: #e9ecef;
+  border-color: transparent;
+}
+
+.signin-card__input:focus {
+  background-color: #fff;
+}
+
+.signin-card__link {
+  color: #8fc7ff;
+  text-decoration: none;
+}
+
+.signin-card__link:hover {
+  text-decoration: underline;
+}
+
+.signin-card__or {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
+.signin-card__or::before,
+.signin-card__or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.custom-test-emphasis {
+  color:white
+}
+
+.google-icon {
+  width: 24px;
+  height: 24px;
+  mix-blend-mode: multiply;
+}
+/* ── Footer strip ─────────────────────────────────────── */
+
+.signin-card__footer {
+  width: 100%;
+  background-color: var(--mesims-brand-darker, #223148);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  font-size: 0.75rem;
+  padding: 0.6rem 0;
+}

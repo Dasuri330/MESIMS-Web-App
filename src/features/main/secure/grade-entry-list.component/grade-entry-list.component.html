@@ -1,0 +1,48 @@
+<app-dashboard-shell
+  roleLabel="Teacher"
+  userName="Elena Santos"
+  [navItems]="navItems"
+>
+  <h1 class="h4 fw-semibold mb-1">Grade entry</h1>
+  <p class="text-secondary-emphasis mb-4">
+    Quarter 1 · Showing only the subjects assigned to you.
+  </p>
+
+  <div class="d-flex flex-column gap-2">
+    @for (load of subjectLoads; track load.routeId) {
+      <a
+        [routerLink]="['/app/teacher/grade-entry', load.routeId]"
+        class="subject-card"
+      >
+        <div class="subject-card__icon">
+          <i class="bi bi-calculator" aria-hidden="true"></i>
+        </div>
+
+        <div class="flex-grow-1">
+          <p class="mb-0 fw-medium">{{ load.subjectName }}</p>
+          <p class="mb-0 small text-secondary-emphasis">
+            {{ load.sectionName }} · {{ load.learnerCount }} learners
+          </p>
+        </div>
+
+        @if (load.status === 'submitted') {
+          <span class="badge text-bg-success-subtle text-success-emphasis">
+            Submitted
+          </span>
+        } @else {
+          <span class="badge text-bg-warning-subtle text-warning-emphasis">
+            Pending Q1
+          </span>
+        }
+
+        <i class="bi bi-chevron-right text-secondary" aria-hidden="true"></i>
+      </a>
+    }
+  </div>
+
+  @if (subjectLoads.length === 0) {
+    <p class="text-secondary-emphasis">
+      No subjects have been assigned to you yet. Contact the registrar if this looks wrong.
+    </p>
+  }
+</app-dashboard-shell>
