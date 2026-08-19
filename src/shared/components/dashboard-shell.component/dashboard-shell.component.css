@@ -70,6 +70,11 @@
   color: #fff;
 }
 
+.shell__nav-link--active {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
 .shell__nav-link--logout {
   margin-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -92,14 +97,6 @@
   border-bottom: 1px solid #e4e6ea;
 }
 
-.shell__user {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
 .shell__avatar {
   width: 2rem;
   height: 2rem;
@@ -111,6 +108,55 @@
   justify-content: center;
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+.shell__profile {
+  position: relative;
+}
+
+.shell__profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.shell__profile-trigger:hover {
+  background-color: #f2f3f5;
+}
+
+.shell__profile-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 12rem;
+  background-color: #fff;
+  border: 1px solid #e4e6ea;
+  border-radius: 0.6rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.12);
+  padding: 0.35rem;
+  z-index: 20;
+}
+
+.shell__profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.4rem;
+  font-size: 0.87rem;
+  color: #24282c;
+  text-decoration: none;
+}
+
+.shell__profile-menu-item:hover {
+  background-color: #f2f3f5;
 }
 
 .shell__content {
