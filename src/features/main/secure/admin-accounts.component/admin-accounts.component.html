@@ -1,0 +1,114 @@
+<app-dashboard-shell
+  roleLabel="Administrator"
+  userName="Rafael Cruz"
+  [navItems]="navItems"
+>
+  <div class="d-flex align-items-start justify-content-between mb-4">
+    <div>
+      <h1 class="h4 fw-semibold mb-1">Manage accounts</h1>
+      <p class="text-secondary-emphasis mb-0">
+        Create login credentials and manage access for teachers, parents, and students.
+      </p>
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="bi bi-person-plus me-1" aria-hidden="true"></i>
+      Create account
+    </button>
+  </div>
+
+  <div class="btn-group mb-3" role="group">
+    <button
+      type="button"
+      class="btn btn-sm"
+      [class.btn-primary]="activeFilter() === 'ALL'"
+      [class.btn-outline-secondary]="activeFilter() !== 'ALL'"
+      (click)="setFilter('ALL')"
+    >
+      All
+    </button>
+    <button
+      type="button"
+      class="btn btn-sm"
+      [class.btn-primary]="activeFilter() === 'TEACHER'"
+      [class.btn-outline-secondary]="activeFilter() !== 'TEACHER'"
+      (click)="setFilter('TEACHER')"
+    >
+      Teachers
+    </button>
+    <button
+      type="button"
+      class="btn btn-sm"
+      [class.btn-primary]="activeFilter() === 'PARENT'"
+      [class.btn-outline-secondary]="activeFilter() !== 'PARENT'"
+      (click)="setFilter('PARENT')"
+    >
+      Parents
+    </button>
+    <button
+      type="button"
+      class="btn btn-sm"
+      [class.btn-primary]="activeFilter() === 'STUDENT'"
+      [class.btn-outline-secondary]="activeFilter() !== 'STUDENT'"
+      (click)="setFilter('STUDENT')"
+    >
+      Students
+    </button>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th class="text-secondary-emphasis small fw-medium">Name</th>
+          <th class="text-secondary-emphasis small fw-medium">Role</th>
+          <th class="text-secondary-emphasis small fw-medium">Login email</th>
+          <th class="text-secondary-emphasis small fw-medium">Status</th>
+          <th class="text-secondary-emphasis small fw-medium text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (account of filteredAccounts(); track account.id) {
+          <tr>
+            <td>{{ account.name }}</td>
+            <td>
+              <span class="badge text-bg-light border">{{ account.role }}</span>
+            </td>
+            <td class="text-secondary-emphasis small">
+              {{ account.email || 'Contacted via SMS' }}
+            </td>
+            <td>
+              @if (account.status === 'active') {
+                <span class="badge text-bg-success-subtle text-success-emphasis">Active</span>
+              } @else {
+                <span class="badge text-bg-danger-subtle text-danger-emphasis">Suspended</span>
+              }
+            </td>
+            <td class="text-end">
+              <button type="button" class="btn btn-sm btn-outline-secondary me-1" title="Edit account">
+                <i class="bi bi-pencil" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary me-1" title="Reset password">
+                <i class="bi bi-key" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                [class.btn-outline-danger]="account.status === 'active'"
+                [class.btn-outline-success]="account.status === 'suspended'"
+                [title]="account.status === 'active' ? 'Suspend account' : 'Reactivate account'"
+                (click)="toggleStatus(account.id)"
+              >
+                <i
+                  class="bi"
+                  [class.bi-slash-circle]="account.status === 'active'"
+                  [class.bi-check-circle]="account.status === 'suspended'"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</app-dashboard-shell>
