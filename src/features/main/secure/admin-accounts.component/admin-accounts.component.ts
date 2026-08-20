@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { DashboardShellComponent, NavItem } from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import {
+  DashboardShellComponent,
+  NavItem,
+} from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
 
 type Role = 'TEACHER' | 'PARENT' | 'STUDENT';
 type AccountStatus = 'active' | 'suspended';
@@ -14,7 +19,11 @@ interface Account {
 
 @Component({
   selector: 'app-admin-accounts',
-  imports: [DashboardShellComponent],
+  imports: [
+    DashboardShellComponent,
+    TableModule,
+    TagModule,
+  ],
   templateUrl: './admin-accounts.component.html',
   styleUrl: './admin-accounts.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,5 +69,22 @@ export class AdminAccountsComponent {
           : a,
       ),
     );
+  }
+
+  protected getRoleSeverity(role: Role): 'info' | 'success' | 'warn' {
+    switch (role) {
+      case 'TEACHER':
+        return 'info';
+
+      case 'PARENT':
+        return 'success';
+
+      case 'STUDENT':
+        return 'warn';
+    }
+  }
+
+  protected getStatusSeverity(status: AccountStatus): 'success' | 'danger' {
+    return status === 'active' ? 'success' : 'danger';
   }
 }
