@@ -1,0 +1,99 @@
+<app-dashboard-shell
+  roleLabel="Teacher"
+  userName="Elena Santos"
+  [navItems]="navItems"
+>
+  <h1 class="h4 fw-semibold mb-1">My profile</h1>
+  <p class="text-secondary-emphasis mb-4">Update your contact details.</p>
+
+  @if (saved()) {
+    <div class="alert alert-success py-2 px-3 small" role="status">
+      Profile updated.
+    </div>
+  }
+
+  <div class="row g-3">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="h6 fw-semibold mb-3">Contact details</h2>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label small">Mobile number</label>
+                <input type="tel" formControlName="mobileNumber" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small">Personal email</label>
+                <input type="email" formControlName="email" class="form-control" />
+              </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-8">
+                <label class="form-label small">House number and street</label>
+                <input type="text" formControlName="houseStreet" class="form-control" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small">Barangay</label>
+                <input type="text" formControlName="barangay" class="form-control" />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label small">City or municipality</label>
+              <input type="text" formControlName="city" class="form-control" />
+            </div>
+
+            <h2 class="h6 fw-semibold mb-3">Emergency contact</h2>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small">Contact person</label>
+                <input type="text" formControlName="emergencyContactName" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small">Mobile number</label>
+                <input type="tel" formControlName="emergencyContactNumber" class="form-control" />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <h2 class="h6 fw-semibold mb-0">Employment record</h2>
+            <span class="badge text-bg-light border small">Managed by the registrar</span>
+          </div>
+
+          <dl class="profile-readonly mb-0">
+            <dt>PRC license number</dt>
+            <dd class="identifier">{{ credentials.prcLicenseNumber }}</dd>
+
+            <dt>Valid until</dt>
+            <dd>{{ credentials.prcValidUntil }}</dd>
+
+            <dt>Employee number</dt>
+            <dd class="identifier">{{ credentials.employeeNumber }}</dd>
+
+            <dt>Employment status</dt>
+            <dd>{{ credentials.employmentStatus }}</dd>
+
+            <dt>Position</dt>
+            <dd>{{ credentials.position }}</dd>
+          </dl>
+
+          <p class="text-secondary-emphasis small mt-3 mb-0">
+            To update license or employment information, contact the registrar's office.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard-shell>

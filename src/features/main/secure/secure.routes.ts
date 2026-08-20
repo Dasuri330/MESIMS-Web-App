@@ -36,6 +36,7 @@ export const SECURE_ROUTES: Routes = [
       import('./grade-entry-list.component/grade-entry-list.component')
         .then((m) => m.GradeEntryListComponent),
   },
+
   // {
   //   path: 'teacher/advisory-status',
   //   title: 'Advisory status — MESIMS',
@@ -43,4 +44,18 @@ export const SECURE_ROUTES: Routes = [
   //     import('./advisory-status.component/advisory-status.component')
   //       .then((m) => m.AdvisoryStatusComponent),
   // },
+  {
+    path: 'teacher/profile',
+    title: 'My profile — MESIMS',
+    loadComponent: () =>
+      import('./teacher-profile.component/teacher-profile.component')
+        .then((m) => m.TeacherProfileComponent),
+  },
+  {
+    path: 'admin/accounts',
+    title: 'Manage accounts — MESIMS',
+    loadComponent: () =>
+      import('./admin-accounts.component/admin-accounts.component')
+        .then((m) => m.AdminAccountsComponent),
+  },
 ];

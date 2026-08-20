@@ -1,0 +1,14 @@
+.profile-readonly dt {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin-top: 0.75rem;
+}
+
+.profile-readonly dt:first-child {
+  margin-top: 0;
+}
+
+.profile-readonly dd {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
