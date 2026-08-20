@@ -8,14 +8,16 @@
    --------------------------------------------------------------- */
 
 :root {
-  --mesims-brand: #378add;
-  --mesims-brand-dark: #2c6fb1;
-  --mesims-brand-darker: #265a90;
+  --mesims-brand: #0d9488;         /* teal-600 — mga button, links, active states */
+  --mesims-brand-dark: #0f766e;    /* teal-700 — hover states */
+  --mesims-brand-darker: #134e4a;  /* teal-900 — sidebar, sign-in dark panel */
+  --mesims-brand-light: #ccfbf1;   /* teal-100 — light tint para sa icon backgrounds */
+
 
   --school-photo: url('/assets/mesims_school_bg.png');
 
   /* DepEd grade descriptors — DO No. 8, s. 2015 */
-  --mesims-grade-outstanding: #2c6f40;
+ --mesims-grade-outstanding: #2c6f40;
   --mesims-grade-very-satisfactory: #3f9e5a;
   --mesims-grade-satisfactory: #c98a1e;
   --mesims-grade-fair: #d97b3a;
@@ -23,7 +25,11 @@
 
   --bs-body-font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --bs-body-color: #24282c;
-  --bs-link-color-rgb: 55, 138, 221;
+  --bs-link-color-rgb: 13, 148, 136;
+}
+
+html {
+  color-scheme: light;
 }
 
 /* ---------------------------------------------------------------
@@ -70,7 +76,6 @@
   --bs-btn-active-bg: var(--mesims-brand-dark);
   --bs-btn-active-border-color: var(--mesims-brand-dark);
 }
-
 /* ---------------------------------------------------------------
    Global element defaults
    --------------------------------------------------------------- */

@@ -67,10 +67,9 @@
 
 .signin-card__form {
   flex: 1;
-  background-color: #36454F;
+  background-color: var(--mesims-brand-darker, #223148);
   padding: 2.5rem 2.25rem 2rem;
 }
-
 .signin-card__input {
   background-color: #e9ecef;
   border-color: transparent;
