@@ -31,7 +31,15 @@
 html {
   color-scheme: light;
 }
-
+.footer {
+  background-color: var(--mesims-brand);
+  color: white;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+}
+.text-secondary {
+  color: #e5e7eb !important;
+}
 /* ---------------------------------------------------------------
    Shared backdrop
    Any page wrapper can take .photo-backdrop. Override the three

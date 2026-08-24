@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../../../shared/components/footer.component/footer.component';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +14,7 @@ import { FooterComponent } from '../../../shared/components/footer.component/foo
 export class SignInComponent {
   private readonly fb = new FormBuilder();
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   protected readonly isSubmitting = signal(false);
   protected readonly serverError = signal<string | null>(null);
@@ -41,28 +43,57 @@ export class SignInComponent {
 
     this.isSubmitting.set(true);
 
-    // ============================================================
-    // TEMPORARY — no backend yet.
-    // This block fakes a successful login so the dashboard UI can
-    // be previewed. DELETE this setTimeout block once AuthService
-    // exists, and replace it with the commented-out block below.
-    // ============================================================
-    setTimeout(() => {
-      this.isSubmitting.set(false);
-      this.router.navigateByUrl('/app/teacher/grade-entry');
-    }, 600);
+    const { email, password } = this.form.getRawValue();
 
-    // TODO: replace the block above with this once the API exists.
-    // authService.login(this.form.getRawValue()).subscribe({
-    //   next: (user) => {
-    //     this.isSubmitting.set(false);
-    //     const dashboardPath = `/app/${user.role.toLowerCase()}/dashboard`;
-    //     this.router.navigateByUrl(dashboardPath);
-    //   },
-    //   error: () => {
-    //     this.isSubmitting.set(false);
-    //     this.serverError.set('Incorrect email or password.');
-    //   },
-    // });
+    function normalizeRole(displayRole: string): string {
+    const map: Record<string, string> = {
+      'Administrator': 'ADMIN',
+      'Principal': 'PRINCIPAL',
+      'Registrar': 'REGISTRAR',
+      'Teacher': 'TEACHER',
+      'Parent': 'PARENT',
+      'Student': 'STUDENT',
+    };
+    return map[displayRole] ?? displayRole.toUpperCase();
+  }
+
+    this.authService.login({ email, password }).subscribe({
+      next: (response) => {
+  this.isSubmitting.set(false);
+
+  const normalizedRole = normalizeRole(response.user.role);
+
+  localStorage.setItem('access_token', response.access_token);
+  localStorage.setItem(
+    'user',
+    JSON.stringify({ ...response.user, role: normalizedRole }),
+  );
+
+  const dashboardPath =
+    normalizedRole === 'ADMIN'
+      ? '/app/admin/accounts'
+      : `/app/${normalizedRole.toLowerCase()}/dashboard`;
+
+  this.router.navigateByUrl(dashboardPath);
+},
+
+      error: (error) => {
+        this.isSubmitting.set(false);
+
+        console.error('Login error:', error);
+
+        if (error.status === 401) {
+          this.serverError.set('Incorrect email or password.');
+        } else if (error.status === 0) {
+          this.serverError.set(
+            'Unable to connect to the server. Please make sure the API is running.'
+          );
+        } else {
+          this.serverError.set(
+            'Something went wrong. Please try again.'
+          );
+        }
+      },
+    });
   }
 }
