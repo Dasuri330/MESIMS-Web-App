@@ -1,21 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import {
-  DashboardShellComponent,
-  NavItem,
-} from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
-
-type Role = 'TEACHER' | 'PARENT' | 'STUDENT';
-type AccountStatus = 'active' | 'suspended';
-
-interface Account {
-  readonly id: string;
-  readonly name: string;
-  readonly role: Role;
-  readonly email: string;
-  readonly status: AccountStatus;
-}
+import { DashboardShellComponent, NavItem } from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
+import { AdminAccountService, Account, Role, AccountStatus } from '../admin-account.service';
 
 @Component({
   selector: 'app-admin-accounts',
@@ -28,22 +15,19 @@ interface Account {
   styleUrl: './admin-accounts.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminAccountsComponent {
+export class AdminAccountsComponent implements OnInit {
+  private readonly accountService = inject(AdminAccountService);
+
   protected readonly navItems: readonly NavItem[] = [
     { icon: 'bi-grid', label: 'Dashboard', route: '/app/admin/dashboard' },
     { icon: 'bi-people', label: 'Manage accounts', route: '/app/admin/accounts' },
-    { icon: 'bi-clipboard-check', label: 'Enrollment queue', route: '/app/admin/dashboard' },
-    { icon: 'bi-journal-text', label: 'Audit logs', route: '/app/admin/dashboard' },
+    { icon: 'bi-clipboard-check', label: 'Enrollment queue', route: '/app/admin/enrollment-queue' },
+    { icon: 'bi-journal-text', label: 'Audit logs', route: '/app/admin/audit-logs' },
   ];
 
-  // TODO: replace with a real call, e.g. this.accountService.getAccounts()
-  protected readonly accounts = signal<readonly Account[]>([
-    { id: '1', name: 'Santos, Elena', role: 'TEACHER', email: 'esantos@meridian.edu.ph', status: 'active' },
-    { id: '2', name: 'Ramos, Jose', role: 'TEACHER', email: 'jramos@meridian.edu.ph', status: 'active' },
-    { id: '3', name: 'Dela Cruz, Rosario', role: 'PARENT', email: '', status: 'active' },
-    { id: '4', name: 'Dela Cruz, Maria Isabel', role: 'STUDENT', email: '', status: 'active' },
-    { id: '5', name: 'Bautista, Nora', role: 'TEACHER', email: 'nbautista@meridian.edu.ph', status: 'suspended' },
-  ]);
+  protected readonly accounts = signal<readonly Account[]>([]);
+  protected readonly isLoading = signal(true);
+  protected readonly loadError = signal<string | null>(null);
 
   protected readonly activeFilter = signal<Role | 'ALL'>('ALL');
 
@@ -53,6 +37,19 @@ export class AdminAccountsComponent {
     return filter === 'ALL' ? all : all.filter((a) => a.role === filter);
   });
 
+  ngOnInit(): void {
+    this.accountService.getAccounts().subscribe({
+      next: (accounts) => {
+        this.accounts.set(accounts);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.loadError.set('Unable to load accounts. Please try again.');
+        this.isLoading.set(false);
+      },
+    });
+  }
+
   protected setFilter(role: Role | 'ALL'): void {
     this.activeFilter.set(role);
   }
@@ -61,7 +58,7 @@ export class AdminAccountsComponent {
   // Deactivating (not deleting) preserves the audit trail — a
   // teacher's past submitted grades must remain attributable even
   // after their account is suspended.
-  protected toggleStatus(id: string): void {
+  protected toggleStatus(id: number): void {
     this.accounts.update((list) =>
       list.map((a) =>
         a.id === id

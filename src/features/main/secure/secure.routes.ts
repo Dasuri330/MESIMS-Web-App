@@ -58,4 +58,18 @@ export const SECURE_ROUTES: Routes = [
       import('./admin-accounts.component/admin-accounts.component')
         .then((m) => m.AdminAccountsComponent),
   },
+  {
+  path: 'admin/enrollment-queue',
+  title: 'Enrollment queue — MESIMS',
+  loadComponent: () =>
+    import('./enrollment-queue.component/enrollment-queue.component')
+      .then((m) => m.EnrollmentQueueComponent),
+},
+{
+  path: 'admin/audit-logs',
+  title: 'Audit logs — MESIMS',
+  loadComponent: () =>
+    import('./audit-logs.component/audit-logs.component')
+      .then((m) => m.AuditLogsComponent),
+},
 ];
