@@ -1,0 +1,95 @@
+<app-dashboard-shell roleLabel="Administrator" userName="Rafael Cruz" [navItems]="navItems">
+  <a
+    routerLink="/app/admin/accounts"
+    class="text-black text-decoration-none small d-inline-flex align-items-center gap-1 mb-3"
+  >
+    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    Back to accounts
+  </a>
+
+  <h1 class="h4 fw-semibold mb-1">Create account</h1>
+  <p class="text-secondary-emphasis mb-4">
+    Only login credentials are created here. The person completes their own profile the first time
+    they sign in.
+  </p>
+
+  <div class="card border-0 shadow-sm" style="max-width: 32rem">
+    <div class="card-body p-4">
+      @if (createdResult()) {
+        <div class="text-center py-2">
+          <i class="bi bi-check-circle fs-1 text-success" aria-hidden="true"></i>
+          <h2 class="h6 fw-semibold mt-3 mb-1">Account created</h2>
+          <p class="text-secondary-emphasis small mb-3">
+            Share these credentials with the person. They'll be asked to change the password on
+            first login.
+          </p>
+
+          <div class="bg-light rounded p-3 text-start mb-3">
+            <p class="mb-1 small">
+              <span class="text-secondary-emphasis">Email:</span> {{ createdResult()!.email }}
+            </p>
+            <p class="mb-0 small">
+              <span class="text-secondary-emphasis">Temporary password:</span>
+              <span class="identifier">{{ createdResult()!.tempPassword }}</span>
+            </p>
+          </div>
+
+          <button type="button" class="btn btn-primary w-100" (click)="doneViewingResult()">
+            Done
+          </button>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          @if (submitError()) {
+            <div class="alert alert-danger py-2 px-3 small">{{ submitError() }}</div>
+          }
+
+          <div class="mb-3">
+            <label class="form-label small">Account type *</label>
+            <select formControlName="role" class="form-select">
+              <option value="" disabled selected>Select a role</option>
+              <option value="TEACHER">Teacher</option>
+              <option value="PARENT">Parent</option>
+              <option value="STUDENT">Student</option>
+            </select>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small">Last name *</label>
+              <input type="text" formControlName="lastName" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small">First name *</label>
+              <input type="text" formControlName="firstName" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Middle name</label>
+            <input type="text" formControlName="middleName" class="form-control" />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label small">Email *</label>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="name@meridian.edu.ph"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100" [disabled]="isSubmitting()">
+            @if (isSubmitting()) {
+              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              Creating…
+            } @else {
+              Create account
+            }
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+</app-dashboard-shell>

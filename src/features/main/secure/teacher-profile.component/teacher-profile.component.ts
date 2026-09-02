@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { DashboardShellComponent, NavItem } from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
+import {
+  DashboardShellComponent,
+  NavItem,
+} from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
 
 @Component({
   selector: 'app-teacher-profile',
@@ -11,6 +14,8 @@ import { DashboardShellComponent, NavItem } from '../../../../shared/components/
 })
 export class TeacherProfileComponent {
   private readonly fb = new FormBuilder();
+
+  protected readonly userName = this.getUserName();
 
   protected readonly navItems: readonly NavItem[] = [
     { icon: 'bi-grid', label: 'Dashboard', route: '/app/teacher/dashboard' },
@@ -32,10 +37,7 @@ export class TeacherProfileComponent {
     emergencyContactNumber: ['0917 208 3364'],
   });
 
-  // Read-only — set by admin/registrar only. Never bind these to
-  // editable inputs here; changing PRC or employment data outside
-  // the registrar's account-management screen breaks the DepEd
-  // compliance trail (see teacher account-creation wizard, step 2).
+  // Read-only — set by admin/registrar only.
   protected readonly credentials = {
     prcLicenseNumber: '1234567',
     prcValidUntil: '22 Mar 2028',
@@ -43,6 +45,22 @@ export class TeacherProfileComponent {
     employmentStatus: 'Permanent',
     position: 'Teacher I',
   };
+
+  private getUserName(): string {
+    const storedUser = localStorage.getItem('user');
+
+    if (!storedUser) {
+      return 'Teacher';
+    }
+
+    try {
+      const user = JSON.parse(storedUser);
+
+      return `${user.first_name} ${user.last_name}`.trim();
+    } catch {
+      return 'Teacher';
+    }
+  }
 
   protected onSubmit(): void {
     if (this.form.invalid) {

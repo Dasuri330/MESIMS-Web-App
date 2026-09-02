@@ -5,8 +5,9 @@ export const SECURE_ROUTES: Routes = [
     path: 'teacher/dashboard',
     title: 'Teacher dashboard — MESIMS',
     loadComponent: () =>
-      import('./teacher-dashboard.component/teacher-dashboard.component')
-        .then((m) => m.TeacherDashboardComponent),
+      import('./teacher-dashboard.component/teacher-dashboard.component').then(
+        (m) => m.TeacherDashboardComponent,
+      ),
   },
   // {
   //   path: 'admin/dashboard',
@@ -33,8 +34,9 @@ export const SECURE_ROUTES: Routes = [
     path: 'teacher/grade-entry',
     title: 'Grade entry — MESIMS',
     loadComponent: () =>
-      import('./grade-entry-list.component/grade-entry-list.component')
-        .then((m) => m.GradeEntryListComponent),
+      import('./grade-entry-list.component/grade-entry-list.component').then(
+        (m) => m.GradeEntryListComponent,
+      ),
   },
 
   // {
@@ -48,28 +50,38 @@ export const SECURE_ROUTES: Routes = [
     path: 'teacher/profile',
     title: 'My profile — MESIMS',
     loadComponent: () =>
-      import('./teacher-profile.component/teacher-profile.component')
-        .then((m) => m.TeacherProfileComponent),
+      import('./teacher-profile.component/teacher-profile.component').then(
+        (m) => m.TeacherProfileComponent,
+      ),
+  },
+  {
+    path: 'admin/accounts/create',
+    title: 'Create account — MESIMS',
+    loadComponent: () =>
+      import('./create-account.component/create-account.component').then(
+        (m) => m.CreateAccountComponent,
+      ),
   },
   {
     path: 'admin/accounts',
     title: 'Manage accounts — MESIMS',
     loadComponent: () =>
-      import('./admin-accounts.component/admin-accounts.component')
-        .then((m) => m.AdminAccountsComponent),
+      import('./admin-accounts.component/admin-accounts.component').then(
+        (m) => m.AdminAccountsComponent,
+      ),
   },
   {
-  path: 'admin/enrollment-queue',
-  title: 'Enrollment queue — MESIMS',
-  loadComponent: () =>
-    import('./enrollment-queue.component/enrollment-queue.component')
-      .then((m) => m.EnrollmentQueueComponent),
-},
-{
-  path: 'admin/audit-logs',
-  title: 'Audit logs — MESIMS',
-  loadComponent: () =>
-    import('./audit-logs.component/audit-logs.component')
-      .then((m) => m.AuditLogsComponent),
-},
+    path: 'admin/enrollment-queue',
+    title: 'Enrollment queue — MESIMS',
+    loadComponent: () =>
+      import('./enrollment-queue.component/enrollment-queue.component').then(
+        (m) => m.EnrollmentQueueComponent,
+      ),
+  },
+  {
+    path: 'admin/audit-logs',
+    title: 'Audit logs — MESIMS',
+    loadComponent: () =>
+      import('./audit-logs.component/audit-logs.component').then((m) => m.AuditLogsComponent),
+  },
 ];
