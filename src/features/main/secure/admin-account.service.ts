@@ -13,6 +13,18 @@ export interface Account {
   readonly status: AccountStatus;
 }
 
+export interface CreateLoginRequest {
+  role: string;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
+  email: string;
+}
+
+export interface CreateLoginResponse {
+  email: string;
+  tempPassword: string;
+}
 @Injectable({ providedIn: 'root' })
 export class AdminAccountService {
   private readonly http = inject(HttpClient);
@@ -20,5 +32,9 @@ export class AdminAccountService {
 
   getAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(`${this.apiUrl}/admin/users`);
+  }
+
+  createLogin(payload: CreateLoginRequest): Observable<CreateLoginResponse> {
+    return this.http.post<CreateLoginResponse>(`${this.apiUrl}/admin/users`, payload);
   }
 }

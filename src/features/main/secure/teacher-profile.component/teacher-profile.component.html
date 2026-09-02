@@ -1,15 +1,9 @@
-<app-dashboard-shell
-  roleLabel="Teacher"
-  userName="Elena Santos"
-  [navItems]="navItems"
->
+<app-dashboard-shell roleLabel="Teacher" userName="Elena Santos" [navItems]="navItems">
   <h1 class="h4 fw-semibold mb-1">My profile</h1>
   <p class="text-secondary-emphasis mb-4">Update your contact details.</p>
 
   @if (saved()) {
-    <div class="alert alert-success py-2 px-3 small" role="status">
-      Profile updated.
-    </div>
+    <div class="alert alert-success py-2 px-3 small" role="status">Profile updated.</div>
   }
 
   <div class="row g-3">

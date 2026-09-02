@@ -1,8 +1,4 @@
-<app-dashboard-shell
-  roleLabel="Administrator"
-  userName="Rafael Cruz"
-  [navItems]="navItems"
->
+<app-dashboard-shell roleLabel="Administrator" userName="Rafael Cruz" [navItems]="navItems">
   <div class="d-flex align-items-start justify-content-between mb-4">
     <div>
       <h1 class="h4 fw-semibold mb-1">Manage accounts</h1>
@@ -11,7 +7,12 @@
       </p>
     </div>
 
-    <button type="button" class="btn btn-primary">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="createAccount()"
+      [disabled]="isCreateDisabled()"
+    >
       <i class="bi bi-person-plus me-1" aria-hidden="true"></i>
       Create account
     </button>
@@ -84,10 +85,7 @@
           </td>
 
           <td>
-            <p-tag
-              [value]="account.role"
-              [severity]="getRoleSeverity(account.role)"
-            />
+            <p-tag [value]="account.role" [severity]="getRoleSeverity(account.role)" />
           </td>
 
           <td class="text-secondary-emphasis small">
@@ -123,11 +121,7 @@
               class="btn btn-sm"
               [class.btn-outline-danger]="account.status === 'active'"
               [class.btn-outline-success]="account.status === 'suspended'"
-              [title]="
-                account.status === 'active'
-                  ? 'Suspend account'
-                  : 'Reactivate account'
-              "
+              [title]="account.status === 'active' ? 'Suspend account' : 'Reactivate account'"
               (click)="toggleStatus(account.id)"
             >
               <i
@@ -143,9 +137,7 @@
 
       <ng-template #emptymessage>
         <tr>
-          <td colspan="5" class="text-center py-4 table-text">
-            No accounts found.
-          </td>
+          <td colspan="5" class="text-center py-4 table-text">No accounts found.</td>
         </tr>
       </ng-template>
     </p-table>

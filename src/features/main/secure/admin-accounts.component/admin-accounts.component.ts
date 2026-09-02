@@ -1,22 +1,30 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { DashboardShellComponent, NavItem } from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
+import {
+  DashboardShellComponent,
+  NavItem,
+} from '../../../../shared/components/dashboard-shell.component/dashboard-shell.component';
 import { AdminAccountService, Account, Role, AccountStatus } from '../admin-account.service';
 
 @Component({
   selector: 'app-admin-accounts',
-  imports: [
-    DashboardShellComponent,
-    TableModule,
-    TagModule,
-  ],
+  imports: [DashboardShellComponent, TableModule, TagModule],
   templateUrl: './admin-accounts.component.html',
   styleUrl: './admin-accounts.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminAccountsComponent implements OnInit {
   private readonly accountService = inject(AdminAccountService);
+  private readonly router = inject(Router);
 
   protected readonly navItems: readonly NavItem[] = [
     { icon: 'bi-grid', label: 'Dashboard', route: '/app/admin/dashboard' },
@@ -28,6 +36,7 @@ export class AdminAccountsComponent implements OnInit {
   protected readonly accounts = signal<readonly Account[]>([]);
   protected readonly isLoading = signal(true);
   protected readonly loadError = signal<string | null>(null);
+  protected readonly isCreateDisabled = computed(() => this.activeFilter() === 'ALL');
 
   protected readonly activeFilter = signal<Role | 'ALL'>('ALL');
 
@@ -54,16 +63,15 @@ export class AdminAccountsComponent implements OnInit {
     this.activeFilter.set(role);
   }
 
+  protected createAccount(): void {
+    this.router.navigateByUrl('/app/admin/accounts/create');
+  }
+
   // TODO: wire to DELETE/PATCH /accounts/:id once the API exists.
-  // Deactivating (not deleting) preserves the audit trail — a
-  // teacher's past submitted grades must remain attributable even
-  // after their account is suspended.
   protected toggleStatus(id: number): void {
     this.accounts.update((list) =>
       list.map((a) =>
-        a.id === id
-          ? { ...a, status: a.status === 'active' ? 'suspended' : 'active' }
-          : a,
+        a.id === id ? { ...a, status: a.status === 'active' ? 'suspended' : 'active' } : a,
       ),
     );
   }
@@ -72,10 +80,8 @@ export class AdminAccountsComponent implements OnInit {
     switch (role) {
       case 'TEACHER':
         return 'info';
-
       case 'PARENT':
         return 'success';
-
       case 'STUDENT':
         return 'warn';
     }
